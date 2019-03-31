@@ -85,10 +85,6 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
-<!--                    <compilerArgs>-->
-<!--                        <arg>&#45;&#45;add-modules</arg>-->
-<!--                        <arg>java.ws.rs,java.xml.bind,grizzly.http.server,jersey.container.grizzly2.http,jersey.server,jersey.common</arg>-->
-<!--                    </compilerArgs>-->
                 </configuration>
             </plugin>
             <plugin>
