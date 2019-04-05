@@ -106,7 +106,7 @@
                              also adding the project build directory -->
                         <modulepath/>
                         <argument>--module</argument> <!-- or -m -->
-                        <argument>mymodule/com.example.Main</argument>
+                        <argument>myModule/com.example.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>

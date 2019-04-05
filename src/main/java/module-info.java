@@ -1,4 +1,4 @@
-module mymodule {
+module myModule {
     requires java.ws.rs;
     requires java.xml.bind;
     requires java.json.bind;
