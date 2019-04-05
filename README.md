@@ -9,5 +9,12 @@ The mojo plugin will create a modulepath file which contains the absolute paths 
 
 The maven-dependency plugin will copy all jars to the appengine-staging folder. 
 
-Now we can run with:
-java -p classes;appengine-staging\ --module myModule/com.example.Main
+Now we can run on Windows with:
+java -p simple-service-1.0-SNAPSHOT.jar;appengine-staging/ --module myModule/com.example.Main localhost
+
+On Linux
+java -p simple-service-1.0-SNAPSHOT.jar:appengine-staging/ --module myModule/com.example.Main localhost
+
+On App Engine, see app.yaml file.
+
+

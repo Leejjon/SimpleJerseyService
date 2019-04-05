@@ -19,7 +19,7 @@ public class MyResourceTest {
     @BeforeEach
     public void setUp() throws Exception {
         // start the server
-        server = Main.startServer();
+        server = Main.startServer("localhost");
         // create the client
         Client c = ClientBuilder.newClient();
 
