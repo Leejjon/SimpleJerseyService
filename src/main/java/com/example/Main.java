@@ -22,7 +22,14 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.example package
-        final ResourceConfig rc = new ResourceConfig().packages("com.example");
+        final ResourceConfig rc = new ResourceConfig();
+
+        // Registering like this will give warnings like:
+        // WARNING: A provider com.example.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
+        // com.example.MyResource will be ignored.
+        // But according to stackoverflow this is a bug:
+        // https://github.com/jersey/jersey/issues/3700
+        rc.register(new MyResource());
 
         // Disable wadl because I never asked for this.
         rc.property("jersey.config.server.wadl.disableWadl", true);
@@ -41,7 +48,7 @@ public class Main {
         final HttpServer server = startServer();
         System.out.println(String.format("Jersey app started at %s\nHit enter to stop it...", BASE_URI));
         System.in.read();
-        server.stop();
+        server.shutdownNow();
     }
 }
 
