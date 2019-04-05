@@ -40,12 +40,14 @@ public class Main {
 
     /**
      * Main method.
-     * @param args Contains localhost or 0.0.0.0
+     * @param args Should contain "localhost" or "0.0.0.0".
      */
     public static void main(String[] args) {
         String base = args[0];
         startServer(base);
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base)));
+        // When running locally, the server keeps binding the port. You have to kill the Java server manually.
+        // I don't think this is a problem on App Engine as most likely the entire container will be killed.
     }
 }
 
