@@ -34,6 +34,28 @@
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
+             <exclusions>
+                <!--
+                When running: java -p classes;appengine-staging/ - -module myModule/com.example.Main
+
+                This exception occured:
+                java.lang.module.FindException: Two versions of module java.json found in appengine-staging:
+                - jakarta.json-api-1.1.5.jar
+                - jakarta.json-1.1.5.jar
+
+                They both work, just not together.
+
+                So I removed the one that seems to be repackaged via osgi (I'm not sure, I never understood osgi).
+                -->
+<!--                <exclusion>-->
+<!--                     <groupId>jakarta.json</groupId>-->
+<!--                     <artifactId>jakarta.json-api</artifactId>-->
+<!--                 </exclusion>-->
+                 <exclusion>
+                     <groupId>org.glassfish</groupId>
+                     <artifactId>jakarta.json</artifactId>
+                 </exclusion>
+             </exclusions>
         </dependency>
 
         <dependency>
@@ -110,7 +132,25 @@
                     </arguments>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/appengine-staging
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
