@@ -19,14 +19,13 @@ public class Main {
      * @return Grizzly HTTP server.
      */
     static HttpServer startServer(String base) {
-        // create a resource config that scans for JAX-RS resources and providers
-        // in com.example package
+        // create a resource config that registers the MyResource JAX-RS resource
         final ResourceConfig rc = new ResourceConfig();
 
         // Registering like this will give warnings like:
         // WARNING: A provider com.example.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
         // com.example.MyResource will be ignored.
-        // But according to stackoverflow this is a bug:
+        // But it just works and according to stackoverflow this is a bug:
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
@@ -46,8 +45,6 @@ public class Main {
         String base = args[0];
         startServer(base);
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base)));
-        // When running locally, the server keeps binding the port. You have to kill the Java server manually.
-        // I don't think this is a problem on App Engine as most likely the entire container will be killed.
     }
 }
 
