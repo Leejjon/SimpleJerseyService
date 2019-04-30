@@ -1,4 +1,8 @@
 # SimpleJerseyService
+
+For a guide on how I put this together, see:
+https://link.medium.com/I4Qp0luT9V
+
 Only works with Java 11. 
 
 Build by running 'mvn clean install'
