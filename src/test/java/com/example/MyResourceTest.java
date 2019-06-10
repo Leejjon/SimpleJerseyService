@@ -5,21 +5,22 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;;
 
 public class MyResourceTest {
 
     private HttpServer server;
     private WebTarget target;
 
-    @BeforeEach
+    @Before
     public void setUp() throws Exception {
         // start the server
         server = Main.startServer("localhost");
+
         // create the client
         Client c = ClientBuilder.newClient();
 
@@ -29,10 +30,10 @@ public class MyResourceTest {
         // --
         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
-        target = c.target(Main.BASE_URI);
+        target = c.target("http://localhost:8080/");
     }
 
-    @AfterEach
+    @After
     public void tearDown() throws Exception {
         server.stop();
     }
@@ -42,7 +43,7 @@ public class MyResourceTest {
      */
     @Test
     public void testGetIt() {
-        String responseMsg = target.path("myresource").request().get(String.class);
+        String responseMsg = target.path("").request().get(String.class);
         assertEquals("Got it!", responseMsg);
     }
 }
