@@ -24,12 +24,6 @@ public class MyResourceTest {
         // create the client
         Client c = ClientBuilder.newClient();
 
-        // uncomment the following line if you want to enable
-        // support for JSON in the client (you also have to uncomment
-        // dependency on jersey-media-json module in pom.xml and Main.startServer())
-        // --
-        // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
-
         target = c.target("http://localhost:8080/");
     }
 
@@ -45,5 +39,14 @@ public class MyResourceTest {
     public void testGetIt() {
         String responseMsg = target.path("").request().get(String.class);
         assertEquals("Got it!", responseMsg);
+    }
+
+    /**
+     * Test to see that the person with firstname "Leon" and date of birth "1989-01-01" is returned in proper json.
+     */
+    @Test
+    public void testGetPerson() {
+        String responseMsg = target.path("person").request().get(String.class);
+        assertEquals("{\"dateOfBirth\":\"1989-01-01T00:00:00Z[UTC]\",\"firstName\":\"Leon\"}", responseMsg);
     }
 }
