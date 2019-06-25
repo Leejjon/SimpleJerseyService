@@ -7,5 +7,7 @@ module myModule {
     requires jersey.container.grizzly2.http;
     requires jersey.server;
     requires jersey.common;
+    requires lombok;
+
     exports com.example;
 }
