@@ -142,11 +142,9 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-p</argument> <!-- or -p  -->
-                        <!-- automatically creates the modulepath using all project dependencies,
-                             also adding the project build directory -->
+                        <argument>-p</argument>
                         <modulepath/>
-                        <argument>-m</argument> <!-- or -m -->
+                        <argument>-m</argument>
                         <argument>myModule/com.example.Main</argument>
                         <argument>localhost</argument>
                         <argument>8080</argument>
