@@ -12,13 +12,13 @@ import java.net.URI;
  */
 public class Main {
     // Base URI the Grizzly HTTP server will listen on
-    static final String BASE_URI = "http://%s:8080/";
+    private static final String BASE_URI = "http://%1$s:%2$s/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
-    static HttpServer startServer(String base) {
+    static HttpServer startServer(String base, String port) {
         // create a resource config that registers the MyResource JAX-RS resource
         final ResourceConfig rc = new ResourceConfig();
 
@@ -34,7 +34,7 @@ public class Main {
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(String.format(BASE_URI, base)), rc);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(String.format(BASE_URI, base, port)), rc);
     }
 
     /**
@@ -43,8 +43,9 @@ public class Main {
      */
     public static void main(String[] args) {
         String base = args[0];
-        startServer(base);
-        System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base)));
+        String port = args[1];
+        startServer(base, port);
+        System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
     }
 }
 

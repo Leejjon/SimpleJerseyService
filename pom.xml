@@ -25,6 +25,12 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.activation</groupId>
+                    <artifactId>jakarta.activation</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
@@ -143,6 +149,7 @@
                         <argument>-m</argument> <!-- or -m -->
                         <argument>myModule/com.example.Main</argument>
                         <argument>localhost</argument>
+                        <argument>8080</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -153,8 +160,8 @@
                 <version>2.0.0</version>
                 <configuration>
                     <deploy.projectId>nodejs-static</deploy.projectId>
-                    <version>3</version>
-                    <promote>false</promote>
+                    <version>1</version>
+                    <promote>true</promote>
                 </configuration>
             </plugin>
         </plugins>
