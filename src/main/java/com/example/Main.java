@@ -39,7 +39,7 @@ public class Main {
 
     /**
      * Main method.
-     * @param args Should contain "localhost" or "0.0.0.0".
+     * @param args Should contain "localhost" or "0.0.0.0" as first argument, and a valid port as second.
      */
     public static void main(String[] args) {
         String base = args[0];
