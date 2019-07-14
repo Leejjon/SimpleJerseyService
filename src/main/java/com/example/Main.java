@@ -6,6 +6,10 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.net.URI;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Main class.
@@ -45,8 +49,22 @@ public class Main {
     public static void main(String[] args) {
         String base = args[0];
         String port = args[1];
+
+//        enableAllLogging();
+
         startServer(base, port);
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
+    }
+
+    /**
+     * Makes sure everything logged by every dependency is coming up.
+     */
+    private static void enableAllLogging() {
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(Level.ALL);
+        for (Handler h : rootLogger.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
     }
 }
 
