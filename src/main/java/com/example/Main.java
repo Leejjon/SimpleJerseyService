@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.controller.MyResource;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -23,8 +24,8 @@ public class Main {
         final ResourceConfig rc = new ResourceConfig();
 
         // Registering like this will give warnings like:
-        // WARNING: A provider com.example.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
-        // com.example.MyResource will be ignored.
+        // WARNING: A provider com.example.controller.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
+        // com.example.controller.MyResource will be ignored.
         // But it just works and according to stackoverflow this is a bug:
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
