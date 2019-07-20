@@ -9,5 +9,7 @@ module myModule {
     requires java.logging;
 
     exports com.example.controller to jersey.server;
+    exports com.example.model to org.eclipse.yasson;
+
     exports com.example;
 }
