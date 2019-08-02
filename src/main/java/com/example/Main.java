@@ -59,7 +59,7 @@ public class Main {
      */
     public static void main(String[] args) {
         boolean developing = false;
-        if (args.length > 0 && args[0].contains("DEV")) {
+        if (args.length > 0 && args[0].contains("LOCAL")) {
             developing = true;
         }
 

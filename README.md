@@ -16,14 +16,14 @@ The maven-dependency plugin will copy all jars to the appengine-staging folder.
 To run it directly from Java without maven:
  
 We can run on Windows from the target folder with:
-java -p simple-service-1.0-SNAPSHOT.jar;appengine-staging/ -m myModule/com.example.Main localhost 8080
+java -p simple-service-1.0-SNAPSHOT.jar;appengine-staging/ -m myModule/com.example.Main LOCAL
 
 On Linux from the target folder:
-java -p simple-service-1.0-SNAPSHOT.jar:appengine-staging/ -m myModule/com.example.Main localhost 8080
+java -p simple-service-1.0-SNAPSHOT.jar:appengine-staging/ -m myModule/com.example.Main LOCAL
 
 To deploy on App Engine, use 'mvn appengine:deploy'.
 
 On App Engine, all jars are copied to the same folder. That's running via:
-java -p ./ -m myModule/com.example.Main 0.0.0.0 8081
+java -p ./ -m myModule/com.example.Main
 
 

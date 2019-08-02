@@ -146,7 +146,7 @@
                         <modulepath/>
                         <argument>-m</argument>
                         <argument>myModule/com.example.Main</argument>
-                        <argument>DEV</argument>
+                        <argument>LOCAL</argument>
                     </arguments>
                 </configuration>
             </plugin>
