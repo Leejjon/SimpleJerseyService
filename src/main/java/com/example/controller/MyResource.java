@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Path("")
 public class MyResource {
+    private static final String PLAIN_TEXT_ENCODING = "UTF-8";
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -26,14 +27,16 @@ public class MyResource {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
+    public Response getIt() {
+        return Response.ok()
+                .entity("Got it!")
+                .encoding(PLAIN_TEXT_ENCODING).build();
     }
 
     @GET
     @Path("person")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPerson() {
+    public Response getPerson() {
         Person p = new Person();
         p.setFirstName("Leon");
         LocalDate birthDay = LocalDate.of(1989, 1, 1);
@@ -41,6 +44,6 @@ public class MyResource {
         Date birthDayDate = Date.from(birthDayZdt.toInstant());
         p.setDateOfBirth(birthDayDate);
 
-        return p;
+        return Response.ok().entity(p).build();
     }
 }

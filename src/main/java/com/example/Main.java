@@ -5,6 +5,10 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerResponseContext;
+import javax.ws.rs.container.ContainerResponseFilter;
+import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -39,6 +43,24 @@ public class Main {
         // But it just works and according to stackoverflow this is a bug:
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
+
+        if (developing) {
+            final String HEADERS = "Origin, Content-Type, Accept";
+            final String ALLOW_ORIGIN = "Access-Control-Allow-Origin";
+            final String ALLOW_HEADERS = "Access-Control-Allow-Headers";
+            final String ALLOW_METHODS = "Access-Control-Allow-Methods";
+
+            // Don't tell me to use a lambda instead of anonymous class here. In a register method where you can put
+            // like any object you'd never guess it's about a ContainerResponseFilter.
+            rc.register(new ContainerResponseFilter() {
+                @Override
+                public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
+                    responseContext.getHeaders().add(ALLOW_ORIGIN, "*");
+                    responseContext.getHeaders().add(ALLOW_HEADERS, HEADERS);
+                    responseContext.getHeaders().add(ALLOW_METHODS, "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+                }
+            });
+        }
 
         // Disable wadl because I never asked for this.
         rc.property("jersey.config.server.wadl.disableWadl", true);
