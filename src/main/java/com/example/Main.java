@@ -30,10 +30,10 @@ public class Main {
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
-     * @param developing If true, we will add CORS headers with each request to make it easier to run locallys.
+     * @param local If true, we will add CORS headers with each request to make it easier to run locallys.
      * @return Grizzly HTTP server.
      */
-    static HttpServer startServer(boolean developing) {
+    static HttpServer startServer(boolean local) {
         // create a resource config that registers the MyResource JAX-RS resource
         final ResourceConfig rc = new ResourceConfig();
 
@@ -44,7 +44,7 @@ public class Main {
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
-        if (developing) {
+        if (local) {
             final String HEADERS = "Origin, Content-Type, Accept";
             final String ALLOW_ORIGIN = "Access-Control-Allow-Origin";
             final String ALLOW_HEADERS = "Access-Control-Allow-Headers";
@@ -65,8 +65,8 @@ public class Main {
         // Disable wadl because I never asked for this.
         rc.property("jersey.config.server.wadl.disableWadl", true);
 
-        final String base = developing ? LOCAL_HOST : PRODUCTION_HOST;
-        final String port = developing ? LOCAL_PORT : PRODUCTION_PORT;
+        final String base = local ? LOCAL_HOST : PRODUCTION_HOST;
+        final String port = local ? LOCAL_PORT : PRODUCTION_PORT;
 
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
 
@@ -77,17 +77,17 @@ public class Main {
 
     /**
      * Main method.
-     * @param args First value should contain "DEV" to start with CORS disabled.
+     * @param args First value should contain "LOCAL" to start with CORS disabled.
      */
     public static void main(String[] args) {
-        boolean developing = false;
+        boolean local = false;
         if (args.length > 0 && args[0].contains("LOCAL")) {
-            developing = true;
+            local = true;
         }
 
 //        enableAllLogging();
 
-        startServer(developing);
+        startServer(local);
     }
 
     /**
