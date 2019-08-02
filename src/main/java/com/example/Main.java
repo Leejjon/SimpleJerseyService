@@ -16,14 +16,20 @@ import java.util.logging.Logger;
  *
  */
 public class Main {
+    private static final String PRODUCTION_HOST = "0.0.0.0";
+    private static final String PRODUCTION_PORT = System.getenv().get("PORT");
+    private static final String LOCAL_HOST = "localhost";
+    private static final String LOCAL_PORT = "8080";
+
     // Base URI the Grizzly HTTP server will listen on
     private static final String BASE_URI = "http://%1$s:%2$s/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
+     * @param developing If true, we will add CORS headers with each request to make it easier to run locallys.
      * @return Grizzly HTTP server.
      */
-    static HttpServer startServer(String base, String port) {
+    static HttpServer startServer(boolean developing) {
         // create a resource config that registers the MyResource JAX-RS resource
         final ResourceConfig rc = new ResourceConfig();
 
@@ -37,6 +43,11 @@ public class Main {
         // Disable wadl because I never asked for this.
         rc.property("jersey.config.server.wadl.disableWadl", true);
 
+        final String base = developing ? LOCAL_HOST : PRODUCTION_HOST;
+        final String port = developing ? LOCAL_PORT : PRODUCTION_PORT;
+
+        System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
+
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(String.format(BASE_URI, base, port)), rc);
@@ -44,16 +55,17 @@ public class Main {
 
     /**
      * Main method.
-     * @param args Should contain "localhost" or "0.0.0.0" as first argument, and a valid port as second.
+     * @param args First value should contain "DEV" to start with CORS disabled.
      */
     public static void main(String[] args) {
-        String base = args[0];
-        String port = args[1];
+        boolean developing = false;
+        if (args.length > 0 && args[0].contains("DEV")) {
+            developing = true;
+        }
 
 //        enableAllLogging();
 
-        startServer(base, port);
-        System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
+        startServer(developing);
     }
 
     /**

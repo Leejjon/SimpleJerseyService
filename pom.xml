@@ -146,8 +146,7 @@
                         <modulepath/>
                         <argument>-m</argument>
                         <argument>myModule/com.example.Main</argument>
-                        <argument>localhost</argument>
-                        <argument>8080</argument>
+                        <argument>DEV</argument>
                     </arguments>
                 </configuration>
             </plugin>
