@@ -1,8 +1,14 @@
 package com.example;
 
+import com.example.controller.MyResource;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import java.net.URI;
 
@@ -23,14 +29,14 @@ public class Main {
         final ResourceConfig rc = new ResourceConfig();
 
         // Registering like this will give warnings like:
-        // WARNING: A provider com.example.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
-        // com.example.MyResource will be ignored.
+        // WARNING: A provider com.example.controller.MyResource registered in SERVER runtime does not implement any provider interfaces applicable in the SERVER runtime. Due to constraint configuration problems the provider
+        // com.example.controller.MyResource will be ignored.
         // But it just works and according to stackoverflow this is a bug:
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
         // Disable wadl because I never asked for this.
-        rc.property("jersey.config.server.wadl.disableWadl", true);
+        rc.property("jersey.config.server.wadl.disableWadl", false);
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -42,10 +48,20 @@ public class Main {
      * @param args Should contain "localhost" or "0.0.0.0" as first argument, and a valid port as second.
      */
     public static void main(String[] args) {
+        enableLogging();
+
         String base = args[0];
         String port = args[1];
         startServer(base, port);
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
+    }
+
+    private static void enableLogging() {
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(Level.ALL);
+        for (Handler h : rootLogger.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
     }
 }
 
