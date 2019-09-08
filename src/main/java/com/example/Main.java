@@ -63,7 +63,7 @@ public class Main {
         }
 
         // Disable wadl because I never asked for this.
-        rc.property("jersey.config.server.wadl.disableWadl", true);
+        rc.property("jersey.config.server.wadl.disableWadl", false);
 
         final String base = local ? LOCAL_HOST : PRODUCTION_HOST;
         final String port = local ? LOCAL_PORT : PRODUCTION_PORT;
@@ -85,7 +85,7 @@ public class Main {
             local = true;
         }
 
-//        enableAllLogging();
+        enableAllLogging();
 
         startServer(local);
     }

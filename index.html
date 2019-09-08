@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function logPerson() {
+            fetch('http://localhost:8080/person')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
+                    console.log(JSON.stringify(myJson));
+                });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="logPerson()">Log Person</button>
+</body>
+</html>

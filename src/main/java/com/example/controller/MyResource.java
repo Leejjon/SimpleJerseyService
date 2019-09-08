@@ -26,17 +26,15 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response getIt() {
-        return Response.ok()
-                .entity("Got it!")
-                .encoding(PLAIN_TEXT_ENCODING).build();
+    @Produces("text/plain; charset=UTF-8")
+    public String getIt() {
+        return "Got it!";
     }
 
     @GET
     @Path("person")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPerson() {
+    public Person getPerson() {
         Person p = new Person();
         p.setFirstName("Leon");
         LocalDate birthDay = LocalDate.of(1989, 1, 1);
@@ -44,6 +42,6 @@ public class MyResource {
         Date birthDayDate = Date.from(birthDayZdt.toInstant());
         p.setDateOfBirth(birthDayDate);
 
-        return Response.ok().entity(p).build();
+        return p;
     }
 }
