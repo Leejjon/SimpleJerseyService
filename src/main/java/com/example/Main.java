@@ -5,6 +5,10 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.net.URI;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Main class.
@@ -29,8 +33,8 @@ public class Main {
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
-        // Disable wadl because I never asked for this.
-        rc.property("jersey.config.server.wadl.disableWadl", true);
+        // Disable wadl here if you like.
+        rc.property("jersey.config.server.wadl.disableWadl", false);
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -42,10 +46,20 @@ public class Main {
      * @param args Should contain "localhost" or "0.0.0.0" as first argument, and a valid port as second.
      */
     public static void main(String[] args) {
+        enableLogging();
+
         String base = args[0];
         String port = args[1];
         startServer(base, port);
         System.out.println(String.format("Jersey app started at %s", String.format(BASE_URI, base, port)));
+    }
+
+    private static void enableLogging() {
+        Logger rootLogger = LogManager.getLogManager().getLogger("");
+        rootLogger.setLevel(Level.ALL);
+        for (Handler h : rootLogger.getHandlers()) {
+            h.setLevel(Level.ALL);
+        }
     }
 }
 

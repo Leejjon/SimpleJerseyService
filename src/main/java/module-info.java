@@ -6,6 +6,7 @@ module myModule {
     requires jersey.server;
     requires jersey.common;
     requires lombok;
+    requires java.logging;
 
     exports com.example;
 }
