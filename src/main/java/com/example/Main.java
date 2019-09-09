@@ -40,8 +40,8 @@ public class Main {
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
-        // Disable wadl because I never asked for this.
-        rc.property("jersey.config.server.wadl.disableWadl", true);
+        // Disable wadl if you want.
+        rc.property("jersey.config.server.wadl.disableWadl", false);
 
         final String base = developing ? LOCAL_HOST : PRODUCTION_HOST;
         final String port = developing ? LOCAL_PORT : PRODUCTION_PORT;
@@ -63,7 +63,7 @@ public class Main {
             developing = true;
         }
 
-//        enableAllLogging();
+        enableAllLogging();
 
         startServer(developing);
     }
