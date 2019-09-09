@@ -29,8 +29,8 @@ public class Main {
         // https://github.com/jersey/jersey/issues/3700
         rc.register(new MyResource());
 
-        // Disable wadl because I never asked for this.
-        rc.property("jersey.config.server.wadl.disableWadl", true);
+        // Disable wadl if you want.
+        rc.property("jersey.config.server.wadl.disableWadl", false);
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
