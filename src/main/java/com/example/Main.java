@@ -62,7 +62,7 @@ public class Main {
             });
         }
 
-        // Disable wadl because I never asked for this.
+        // Disable wadl here if you want.
         rc.property("jersey.config.server.wadl.disableWadl", false);
 
         final String base = local ? LOCAL_HOST : PRODUCTION_HOST;
