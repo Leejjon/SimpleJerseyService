@@ -40,13 +40,4 @@ public class MyResourceTest {
         String responseMsg = target.path("").request().get(String.class);
         assertEquals("Got it!", responseMsg);
     }
-
-    /**
-     * Test to see that the person with firstname "Leon" and date of birth "1989-01-01" is returned in proper json.
-     */
-//    @Test
-//    public void testGetPerson() {
-//        String responseMsg = target.path("person").request().get(String.class);
-//        assertEquals("{\"dateOfBirth\":\"1989-01-01T00:00:00Z[UTC]\",\"firstName\":\"Leon\"}", responseMsg);
-//    }
 }

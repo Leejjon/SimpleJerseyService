@@ -37,6 +37,7 @@ public class MyResource {
     public Person getPerson() {
         Person p = new Person();
         p.setFirstName("Leon");
+        p.setLastName("Leejjon");
         LocalDate birthDay = LocalDate.of(1989, 1, 1);
         ZonedDateTime birthDayZdt = birthDay.atStartOfDay(ZoneId.of("UTC"));
         Date birthDayDate = Date.from(birthDayZdt.toInstant());
